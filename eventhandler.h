@@ -12,10 +12,12 @@ class EventHandler : public QObject {
 	void signalOpenSettingsWindow();
 	void signalOpenSettings();
 	void signalSliderChanched(int);
+	void signalSliderDickeChanched(int);
 
 
   public slots:
 	void SlotSliderChanchedValue(int);
+	void SlotSliderDickeChanchedValue(int);
 	void SlotOpenSettingsWindow();
 };
 

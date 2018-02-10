@@ -15,13 +15,15 @@ class paintWidget : public QMainWindow {
 
   private:
 	void paintEvent(QPaintEvent *event);
-    int distValue = 20;
-    EventHandler *h;
+	int distValue = 20;
+	int dickeValue = 1;
+	EventHandler *h;
 
 
   public slots:
 	void SlotOpenSettingsWindow();
 	void SlotSliderChanchedValue(int );
+	void SlotSliderDickeChanchedValue(int );
 
   signals:
 	void signalOpenSettingsWindow();

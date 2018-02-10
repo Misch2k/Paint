@@ -10,10 +10,11 @@ class EventHandler;
 class paintSettings : public QWidget {
 	Q_OBJECT
   public:
-    explicit paintSettings(EventHandler *h, QWidget *parent = nullptr);
+	explicit paintSettings(EventHandler *h, QWidget *parent = nullptr);
 
   private:
 	QSlider *slider;
+	QSlider *sliderDicke;
 	paintWidget *pw;
   public slots:
   signals:

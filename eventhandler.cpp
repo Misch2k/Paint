@@ -11,6 +11,11 @@ void EventHandler::SlotSliderChanchedValue(int v) {
 	emit signalSliderChanched(v);
 }
 
+void EventHandler::SlotSliderDickeChanchedValue(int v) {
+	qDebug() << "Eventhandler SliderDicke " << v;
+	emit signalSliderDickeChanched(v);
+}
+
 void EventHandler::SlotOpenSettingsWindow() {
 	emit signalOpenSettings();
 }
