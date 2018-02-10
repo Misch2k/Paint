@@ -3,6 +3,8 @@
 
 #include <QMainWindow>
 
+class EventHandler;
+
 class paintWidget : public QMainWindow {
 	Q_OBJECT
 
@@ -13,8 +15,8 @@ class paintWidget : public QMainWindow {
 
   private:
 	void paintEvent(QPaintEvent *event);
-	int distValue;
-
+    int distValue = 20;
+    EventHandler *h;
 
 
   public slots:
