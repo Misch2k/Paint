@@ -8,9 +8,9 @@
 
 paintWidget::paintWidget(QWidget *parent)
 	: QMainWindow(parent) {
-    h = new EventHandler();
-	setMinimumHeight(200);
-	setMinimumWidth(200);
+	h = new EventHandler();
+	setMinimumHeight(500);
+	setMinimumWidth(500);
 	QObject::connect(this, SIGNAL(signalOpenSettingsWindow()), h,
 					 SLOT(SlotOpenSettingsWindow()));
 	//--------------------------------------------------
@@ -48,7 +48,7 @@ void paintWidget::paintEvent(QPaintEvent *event) {
 
 void paintWidget::SlotOpenSettingsWindow() {
 	qDebug() << "SlotopenSettingWindow ausgelöst";
-    paintSettings *ps = new paintSettings(h);
+	paintSettings *ps = new paintSettings(h);
 	ps->show();
 }
 

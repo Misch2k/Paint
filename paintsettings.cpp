@@ -5,14 +5,16 @@
 #include <QSlider>
 #include <QObject>
 
-paintSettings::paintSettings(EventHandler *h, QWidget *parent) : QWidget(parent) {
+paintSettings::paintSettings(EventHandler *h,
+							 QWidget *parent) : QWidget(parent) {
 	slider = new QSlider(Qt::Orientation::Horizontal);
 	slider->setTracking(true);
 	slider->setMinimum(5);
-	slider->setMaximum(200);
+	slider->setMaximum(400);
 	QGridLayout *layout = new QGridLayout();
 	layout->addWidget(slider);
 	setWindowTitle("Settings");
+	setFixedSize(200, 40);
 	setWindowFlags(Qt::WindowStaysOnTopHint);
 	setLayout(layout);
 	//--------------------------------------------------
