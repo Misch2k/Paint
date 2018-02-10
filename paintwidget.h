@@ -2,6 +2,7 @@
 #define PAINTWIDGET_H
 
 #include <QMainWindow>
+#include <QStatusBar>
 
 class EventHandler;
 
@@ -18,6 +19,7 @@ class paintWidget : public QMainWindow {
 	int distValue = 20;
 	int dickeValue = 1;
 	EventHandler *h;
+	QStatusBar *statusbar;
 
 
   public slots:

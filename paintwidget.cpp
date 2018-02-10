@@ -6,6 +6,7 @@
 #include <QPainter>
 #include <QObject>
 
+
 paintWidget::paintWidget(QWidget *parent)
 	: QMainWindow(parent) {
 	h = new EventHandler();
@@ -31,6 +32,7 @@ paintWidget::~paintWidget() {
 
 void paintWidget::paintEvent(QPaintEvent *event) {
 	QPainter painter(this);;
+	painter.setRenderHint(QPainter::Antialiasing);
 	painter.setPen(QPen(Qt::white, dickeValue * 0.1));
 	//Start links oben
 	for (int i = 0; i <= height() + 1; i += distValue ) {
