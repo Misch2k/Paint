@@ -5,7 +5,7 @@
 #include <QSlider>
 #include <QObject>
 
-paintSettings::paintSettings(QWidget *parent) : QWidget(parent) {
+paintSettings::paintSettings(EventHandler *h, QWidget *parent) : QWidget(parent) {
 	slider = new QSlider(Qt::Orientation::Horizontal);
 	slider->setTracking(true);
 	slider->setMinimum(5);
@@ -16,7 +16,6 @@ paintSettings::paintSettings(QWidget *parent) : QWidget(parent) {
 	setWindowFlags(Qt::WindowStaysOnTopHint);
 	setLayout(layout);
 	//--------------------------------------------------
-	EventHandler *h = new EventHandler();
 	//--------------------------------------------------
 	//--------------------------------------------------
 	//Slider Valuechanched sende Daten an EventHandler
