@@ -5,17 +5,19 @@
 #include <QSlider>
 #include <QObject>
 #include <QLabel>
+#include <QDebug>
 
 paintSettings::paintSettings(EventHandler *h,
 							 QWidget *parent) : QWidget(parent) {
 	slider = new QSlider(Qt::Orientation::Horizontal);
 	slider->setTracking(true);
-	slider->setMinimum(2);
-	slider->setMaximum(400);
+	slider->setMinimum(1);
+	slider->setMaximum(100);
 	sliderDicke = new QSlider(Qt::Orientation::Horizontal);
 	sliderDicke->setTracking(true);
 	sliderDicke->setMinimum(1);
 	sliderDicke->setMaximum(50);
+	setFixedSize(250, 100);
 	//--------------------------------------------------
 	QLabel *infoSliderDist = new QLabel("Abstände");
 	QLabel *infoSliderDicke = new QLabel("Dicke");

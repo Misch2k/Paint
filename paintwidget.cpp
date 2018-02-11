@@ -35,18 +35,18 @@ void paintWidget::paintEvent(QPaintEvent *event) {
 	painter.setRenderHint(QPainter::Antialiasing);
 	painter.setPen(QPen(Qt::white, dickeValue * 0.1));
 	//Start links oben
-	for (int i = 0; i <= height() + 1; i += distValue ) {
+	for (int i = 0; i <= height() ; i += (height() / 100) * distValue ) {
 		painter.drawLine(0, 0, width(), i);
 	}
-	for (int i = 0; i <= width() + 1; i += distValue ) {
+	for (int i = 0; i <= width() ; i += (width() / 100) * distValue ) {
 		painter.drawLine(0, 0, i, height());
 	}
 	//--------------------------------------------------
 	//Start links oben
-	for (int i = height(); i > 0 ; i -= distValue ) {
+	for (int i = height(); i > 0 ; i -= (height() / 100) * distValue ) {
 		painter.drawLine(0, i, width(), height());
 	}
-	for (int i = width(); i > 0 ; i -= distValue ) {
+	for (int i = width(); i > 0 ; i -= (width() / 100) * distValue ) {
 		painter.drawLine(i, 0, width(), height());
 	}
 }
