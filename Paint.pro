@@ -27,9 +27,11 @@ SOURCES += \
         main.cpp \
         paintwidget.cpp \
     paintsettings.cpp \
-    eventhandler.cpp
+    eventhandler.cpp \
+    myhintlabel.cpp
 
 HEADERS += \
         paintwidget.h \
     paintsettings.h \
-    eventhandler.h
+    eventhandler.h \
+    myhintlabel.h

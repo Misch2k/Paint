@@ -16,7 +16,7 @@ class paintWidget : public QMainWindow {
 
   private:
 	void paintEvent(QPaintEvent *event);
-	int distValue = 20;
+    int distValue = 20;
 	int dickeValue = 1;
 	EventHandler *h;
 	QStatusBar *statusbar;

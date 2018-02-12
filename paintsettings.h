@@ -2,8 +2,10 @@
 #define PAINTSETTINGS_H
 
 #include <QSlider>
+#include <QLabel>
 #include <QWidget>
 #include "paintwidget.h"
+#include "myhintlabel.h"
 
 class EventHandler;
 
@@ -15,8 +17,9 @@ class paintSettings : public QWidget {
   private:
 	QSlider *slider;
 	QSlider *sliderDicke;
-	paintWidget *pw;
-  public slots:
+    paintWidget *pw;
+    MyHintLabel *sliderHint1;
+    MyHintLabel *sliderHint2;
   signals:
 	void sliderMoved();
 
