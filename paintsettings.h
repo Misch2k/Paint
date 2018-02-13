@@ -18,12 +18,15 @@ class paintSettings : public QWidget {
   private:
 	QSlider *slider;
 	QSlider *sliderDicke;
+	QSlider *sliderRotation;
+	QSlider *sliderRotationAbstand;
 	paintWidget *pw;
 	MyHintLabel *sliderHint1;
 	MyHintLabel *sliderHint2;
 	QRadioButton *linesRadioButton;
 	QRadioButton *elipsRadioButton;
 	QRadioButton *quaderRadioButton;
+	QRadioButton *testRadioButton;
 
 
   signals:

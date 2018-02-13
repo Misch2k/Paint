@@ -16,6 +16,9 @@ class EventHandler : public QObject {
 	void signalLinesRadioButtonToogled(bool);
 	void signalElipsRadioButtonToogled(bool);
 	void signalQuaderRadioButtonToogled(bool);
+	void signalTestRadioButtonToogled(bool);
+	void signalSliderRotationChanched(int);
+	void signalSliderRotationAbstandChanched(int);
 
 
   public slots:
@@ -25,6 +28,9 @@ class EventHandler : public QObject {
 	void toggleElipsRadioButton(bool);
 	void toggleLinesRadioButton(bool);
 	void toggleQuaderRadioButton(bool);
+	void toggleTestRadioButton(bool);
+	void SlotSliderRotationChanchedValue(int);
+	void SlotSliderRotationAbstandChanchedValue(int);
 };
 
 #endif // EVENTHANDLER_H

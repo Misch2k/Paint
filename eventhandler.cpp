@@ -33,3 +33,16 @@ void EventHandler::toggleQuaderRadioButton(bool v) {
 	qDebug() << "Quader Radiobutton tooglet ";
 	emit signalQuaderRadioButtonToogled(v);
 }
+void EventHandler::toggleTestRadioButton(bool v) {
+	qDebug() << "Test Radiobutton tooglet ";
+	emit signalTestRadioButtonToogled(v);
+}
+void EventHandler::SlotSliderRotationChanchedValue(int v) {
+	qDebug() << "Eventhandler SliderRotation " << v;
+	emit signalSliderRotationChanched(v);
+}
+void EventHandler::SlotSliderRotationAbstandChanchedValue(int v) {
+	qDebug() << "Eventhandler SliderRotationAbstand " << v;
+	emit signalSliderRotationAbstandChanched(v);
+}
+

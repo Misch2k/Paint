@@ -34,6 +34,16 @@ paintWidget::paintWidget(QWidget *parent)
 	QObject::connect(h, SIGNAL(signalQuaderRadioButtonToogled(bool)),
 					 this, SLOT(SlotQuaderRadioButtonChanched(bool)));
 	//--------------------------------------------------
+	QObject::connect(h, SIGNAL(signalTestRadioButtonToogled(bool)),
+					 this, SLOT(SlotTestRadioButtonChanched(bool)));
+	//--------------------------------------------------
+	QObject::connect(h, SIGNAL(signalSliderRotationChanched(int)),
+					 this, SLOT(SlotSliderRotationChanchedValue(int)));
+	//--------------------------------------------------
+	//--------------------------------------------------
+	QObject::connect(h, SIGNAL(signalSliderRotationAbstandChanched(int)),
+					 this, SLOT(SlotSliderRotationAbstandChanchedValue(int)));
+	//--------------------------------------------------
 	emit signalOpenSettingsWindow();
 }
 
@@ -76,11 +86,21 @@ void paintWidget::paintEvent(QPaintEvent *event) {
 			hoehe = (height() ) * i / distValue;
 			breite = (width() ) * i / distValue;
 			painter.drawRect((width() / 2 ) - (breite / 2), (height() / 2) - (hoehe / 2),
-							 breite,
-							 hoehe);
-//			painter.drawEllipse(QPointF(width() / 2, height() / 2),
-//								(width() / 2) * i / distValue, (height() / 2) * i / distValue);
+							 breite, hoehe);
 		}
+	} else if (isTest) {
+		//Bringt die Koordinate 0,0 in die Mitte der Fensters
+		painter.translate(width() / 2, height() / 2);
+		int p1 = abstand;
+		for (int var(0); var < distValue; ++var) {
+			painter.drawEllipse(QPointF(p1, 0), 50, 50);
+			//Rotation um xx Grad
+			painter.rotate(rotation);
+			p1 += abstand;
+			qDebug() << "isTest Rotation " << rotation;
+			qDebug() << "istest Abstand " << abstand;
+		}
+		painter.resetTransform();
 	} else {
 		painter.drawText(QPoint(width() / 2, height() / 2), "FAIL");
 	}
@@ -120,5 +140,19 @@ void paintWidget::SlotQuaderRadioButtonChanched(bool v) {
 	isQuader = v;
 	paintWidget::repaint();
 }
-
+void paintWidget::SlotTestRadioButtonChanched(bool v) {
+	qDebug() << "Paintwidget Test --> " << v;
+	isTest = v;
+	paintWidget::repaint();
+}
+void paintWidget::SlotSliderRotationChanchedValue(int v) {
+	qDebug() << "Paint: SliderRotation Wert geändert -> " << v;
+	rotation = v;
+	paintWidget::repaint();
+}
+void paintWidget::SlotSliderRotationAbstandChanchedValue(int v) {
+	qDebug() << "Paint: SliderRotationAbstand Wert geändert -> " << v;
+	abstand = v;
+	paintWidget::repaint();
+}
 
