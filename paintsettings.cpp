@@ -2,22 +2,25 @@
 #include "eventhandler.h"
 
 #include <QGridLayout>
-#include <QSlider>
 #include <QObject>
-#include <QLabel>
 #include <QDebug>
 
-paintSettings::paintSettings(EventHandler *h,
-							 QWidget *parent) : QWidget(parent) {
+paintSettings::paintSettings(EventHandler *h, QWidget *parent) : QWidget(parent) {
 	slider = new QSlider(Qt::Orientation::Horizontal);
 	slider->setTracking(true);
-	slider->setMinimum(1);
-	slider->setMaximum(100);
+    slider->setMinimum(1);
+    slider->setSliderPosition(20);
+    slider->setMaximum(999);
+
 	sliderDicke = new QSlider(Qt::Orientation::Horizontal);
 	sliderDicke->setTracking(true);
 	sliderDicke->setMinimum(1);
 	sliderDicke->setMaximum(50);
-	setFixedSize(250, 100);
+    setFixedSize(250, 100);
+
+    sliderHint1 = new MyHintLabel(this, slider);
+    sliderHint2 = new MyHintLabel(this, sliderDicke);
+
 	//--------------------------------------------------
 	QLabel *infoSliderDist = new QLabel("Abstände");
 	QLabel *infoSliderDicke = new QLabel("Dicke");
@@ -34,12 +37,13 @@ paintSettings::paintSettings(EventHandler *h,
 	line->setStyleSheet("color:white");
 	//--------------------------------------------------
 	QGridLayout *layout = new QGridLayout();
-	layout->addWidget(infoSliderDist, 0, 0, 1, 2);
-	layout->addWidget(slider, 0, 2, 1, 2);
-	layout->addWidget(infoSliderDicke, 1, 0, 1, 2);
-	layout->addWidget(sliderDicke, 1, 2, 1, 2);
-	layout->addWidget(line, 2, 0, 1, 4);
-	layout->addWidget(StatusLabel, 3, 0, 1, 4);
+    layout->setRowStretch(0,5);
+    layout->addWidget(infoSliderDist, 1, 0, 1, 2);
+    layout->addWidget(slider, 1, 2, 1, 2);
+    layout->addWidget(infoSliderDicke, 2, 0, 1, 2);
+    layout->addWidget(sliderDicke, 2, 2, 1, 2);
+    layout->addWidget(line, 3, 0, 1, 4);
+    layout->addWidget(StatusLabel, 4, 0, 1, 4);
 	//--------------------------------------------------
 	setWindowTitle("Settings");
 	//setFixedSize(200, 40);
@@ -54,4 +58,8 @@ paintSettings::paintSettings(EventHandler *h,
 	//--------------------------------------------------
 	QObject::connect(this->sliderDicke, SIGNAL(valueChanged(int)), h,
 					 SLOT(SlotSliderDickeChanchedValue(int)));
+    //--------------------------------------------------
+
+    sliderHint2->raise();
+
 }
