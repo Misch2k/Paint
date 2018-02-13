@@ -4,6 +4,9 @@
 #include <QGridLayout>
 #include <QObject>
 #include <QDebug>
+#include <QRadioButton>
+#include <QGroupBox>
+#include <QFormLayout>
 
 paintSettings::paintSettings(EventHandler *h,
 							 QWidget *parent) : QWidget(parent) {
@@ -16,7 +19,7 @@ paintSettings::paintSettings(EventHandler *h,
 	sliderDicke->setTracking(true);
 	sliderDicke->setMinimum(1);
 	sliderDicke->setMaximum(50);
-	setFixedSize(250, 100);
+	//setFixedSize(250, 100);
 	sliderHint1 = new MyHintLabel(this, slider);
 	sliderHint2 = new MyHintLabel(this, sliderDicke);
 	//--------------------------------------------------
@@ -28,20 +31,35 @@ paintSettings::paintSettings(EventHandler *h,
 	StatusLabel->setTextInteractionFlags(Qt::TextBrowserInteraction);
 	StatusLabel->setOpenExternalLinks(true);
 	//--------------------------------------------------
+	linesRadioButton = new QRadioButton();
+	linesRadioButton->setChecked(true);
+	elipsRadioButton = new QRadioButton();
+	quaderRadioButton = new QRadioButton();
+	//--------------------------------------------------
 	QFrame *line = new QFrame(this);
 	line->setFrameShape(QFrame::HLine);
 	line->setFrameShadow(QFrame::Sunken);
 	line->setFixedHeight(2);
 	line->setStyleSheet("color:white");
 	//--------------------------------------------------
+	QFormLayout *settingFormLayout = new QFormLayout;
+	QGroupBox *settingGroupBox = new QGroupBox("Muster");
+	settingFormLayout->addRow(tr("Linien"), linesRadioButton);
+	settingFormLayout->addRow(tr("Elipse"), elipsRadioButton);
+	settingFormLayout->addRow(tr("Quader"), quaderRadioButton);
+	settingGroupBox->setLayout(settingFormLayout);
+	//--------------------------------------------------
 	QGridLayout *layout = new QGridLayout();
-	layout->setRowStretch(0, 5);
+	layout->setRowStretch(0, 20);
 	layout->addWidget(infoSliderDist, 1, 0, 1, 2);
-	layout->addWidget(slider, 1, 2, 1, 2);
+	layout->addWidget(slider, 1, 2, 1, 7);
 	layout->addWidget(infoSliderDicke, 2, 0, 1, 2);
-	layout->addWidget(sliderDicke, 2, 2, 1, 2);
-	layout->addWidget(line, 3, 0, 1, 4);
-	layout->addWidget(StatusLabel, 4, 0, 1, 4);
+	layout->addWidget(sliderDicke, 2, 2, 1, 7);
+	layout->addWidget(settingGroupBox, 4, 0, 3, 7);
+	//--------------------------------------------------
+	//Line, Copyright and Thanks Label
+	layout->addWidget(line, 10, 0, 1, 7);
+	layout->addWidget(StatusLabel, 11, 0, 1, 7);
 	//--------------------------------------------------
 	setWindowTitle("Settings");
 	setWindowIcon(QIcon(":/icons/settings_1.ico"));
@@ -57,6 +75,15 @@ paintSettings::paintSettings(EventHandler *h,
 	//--------------------------------------------------
 	QObject::connect(this->sliderDicke, SIGNAL(valueChanged(int)), h,
 					 SLOT(SlotSliderDickeChanchedValue(int)));
+	//--------------------------------------------------
+	QObject::connect( this->linesRadioButton, SIGNAL(toggled(bool)),
+					  h, SLOT(toggleLinesRadioButton(bool)));
+	//--------------------------------------------------
+	QObject::connect( this->elipsRadioButton, SIGNAL(toggled(bool)),
+					  h, SLOT(toggleElipsRadioButton(bool)));
+	//--------------------------------------------------
+	QObject::connect( this->quaderRadioButton, SIGNAL(toggled(bool)),
+					  h, SLOT(toggleQuaderRadioButton(bool)));
 	//--------------------------------------------------
 	sliderHint2->raise();
 }

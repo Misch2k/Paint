@@ -16,8 +16,11 @@ class paintWidget : public QMainWindow {
 
   private:
 	void paintEvent(QPaintEvent *event);
-    int distValue = 20;
+	int distValue = 20;
 	int dickeValue = 1;
+	bool isLines = 1;
+	bool isElips = 0;
+	bool isQuader = 0;
 	EventHandler *h;
 	QStatusBar *statusbar;
 
@@ -26,6 +29,9 @@ class paintWidget : public QMainWindow {
 	void SlotOpenSettingsWindow();
 	void SlotSliderChanchedValue(int );
 	void SlotSliderDickeChanchedValue(int );
+	void SlotLinesRadioButtonChanched(bool );
+	void SlotElipsRadioButtonChanched(bool );
+	void SlotQuaderRadioButtonChanched(bool );
 
   signals:
 	void signalOpenSettingsWindow();

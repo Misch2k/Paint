@@ -19,3 +19,17 @@ void EventHandler::SlotSliderDickeChanchedValue(int v) {
 void EventHandler::SlotOpenSettingsWindow() {
 	emit signalOpenSettings();
 }
+
+void EventHandler::toggleElipsRadioButton(bool v) {
+	qDebug() << "Elips Radiobutton tooglet ";
+	emit signalElipsRadioButtonToogled(v);
+}
+
+void EventHandler::toggleLinesRadioButton(bool v) {
+	qDebug() << "Lines Radiobutton tooglet ";
+	emit signalLinesRadioButtonToogled(v);
+}
+void EventHandler::toggleQuaderRadioButton(bool v) {
+	qDebug() << "Quader Radiobutton tooglet ";
+	emit signalQuaderRadioButtonToogled(v);
+}

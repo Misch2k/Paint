@@ -13,12 +13,18 @@ class EventHandler : public QObject {
 	void signalOpenSettings();
 	void signalSliderChanched(int);
 	void signalSliderDickeChanched(int);
+	void signalLinesRadioButtonToogled(bool);
+	void signalElipsRadioButtonToogled(bool);
+	void signalQuaderRadioButtonToogled(bool);
 
 
   public slots:
 	void SlotSliderChanchedValue(int);
 	void SlotSliderDickeChanchedValue(int);
 	void SlotOpenSettingsWindow();
+	void toggleElipsRadioButton(bool);
+	void toggleLinesRadioButton(bool);
+	void toggleQuaderRadioButton(bool);
 };
 
 #endif // EVENTHANDLER_H
