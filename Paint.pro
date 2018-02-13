@@ -35,3 +35,6 @@ HEADERS += \
     paintsettings.h \
     eventhandler.h \
     myhintlabel.h
+
+RESOURCES += \
+    res.qrc

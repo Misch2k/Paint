@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/icons">
+        <file>settings_1.ico</file>
+        <file>paint.ico</file>
+    </qresource>
+</RCC>
