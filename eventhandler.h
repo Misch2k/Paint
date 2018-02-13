@@ -19,6 +19,7 @@ class EventHandler : public QObject {
 	void signalTestRadioButtonToogled(bool);
 	void signalSliderRotationChanched(int);
 	void signalSliderRotationAbstandChanched(int);
+	void signalPointsCheckBoxToogled(bool);
 
 
   public slots:
@@ -31,6 +32,7 @@ class EventHandler : public QObject {
 	void toggleTestRadioButton(bool);
 	void SlotSliderRotationChanchedValue(int);
 	void SlotSliderRotationAbstandChanchedValue(int);
+	void SlotPointsCheckBoxChanched(bool);
 };
 
 #endif // EVENTHANDLER_H

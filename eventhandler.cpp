@@ -46,3 +46,8 @@ void EventHandler::SlotSliderRotationAbstandChanchedValue(int v) {
 	emit signalSliderRotationAbstandChanched(v);
 }
 
+void EventHandler::SlotPointsCheckBoxChanched(bool v) {
+	qDebug() << "Points CheckBox tooglet " << v;
+	emit signalPointsCheckBoxToogled(v);
+}
+

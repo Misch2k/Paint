@@ -5,6 +5,7 @@
 #include <QObject>
 #include <QDebug>
 #include <QRadioButton>
+#include <QCheckBox>
 #include <QGroupBox>
 #include <QFormLayout>
 
@@ -37,7 +38,8 @@ paintSettings::paintSettings(EventHandler *h,
 	linesRadioButton->setChecked(true);
 	elipsRadioButton = new QRadioButton();
 	quaderRadioButton = new QRadioButton();
-	testRadioButton = new QRadioButton();
+	spiraleRadioButton = new QRadioButton();
+	pointsCheckBox = new QCheckBox();
 	//--------------------------------------------------
 	QFrame *line = new QFrame(this);
 	line->setFrameShape(QFrame::HLine);
@@ -56,9 +58,10 @@ paintSettings::paintSettings(EventHandler *h,
 	musterFormLayout->addRow(tr("Linien"), linesRadioButton);
 	musterFormLayout->addRow(tr("Elipse"), elipsRadioButton);
 	musterFormLayout->addRow(tr("Quader"), quaderRadioButton);
-	musterFormLayout->addRow(tr("Test"), testRadioButton);
+	musterFormLayout->addRow(tr("Spirale"), spiraleRadioButton);
 	musterFormLayout->addRow(tr("     - Rotation"), sliderRotation);
 	musterFormLayout->addRow(tr("     - Abstand"), sliderRotationAbstand);
+	musterFormLayout->addRow(tr("     - Punkte"), pointsCheckBox);
 	musterGroupBox->setLayout(musterFormLayout);
 	//--------------------------------------------------
 	QGridLayout *layout = new QGridLayout();
@@ -94,7 +97,7 @@ paintSettings::paintSettings(EventHandler *h,
 	QObject::connect( this->quaderRadioButton, SIGNAL(toggled(bool)),
 					  h, SLOT(toggleQuaderRadioButton(bool)));
 	//--------------------------------------------------
-	QObject::connect( this->testRadioButton, SIGNAL(toggled(bool)),
+	QObject::connect( this->spiraleRadioButton, SIGNAL(toggled(bool)),
 					  h, SLOT(toggleTestRadioButton(bool)));
 	//--------------------------------------------------
 	QObject::connect(this->sliderRotation, SIGNAL(valueChanged(int)), h,
@@ -102,5 +105,9 @@ paintSettings::paintSettings(EventHandler *h,
 	//--------------------------------------------------
 	QObject::connect(this->sliderRotationAbstand, SIGNAL(valueChanged(int)), h,
 					 SLOT(SlotSliderRotationAbstandChanchedValue(int)));
+	//--------------------------------------------------
+	QObject::connect( this->pointsCheckBox, SIGNAL(toggled(bool)),
+					  h, SLOT(SlotPointsCheckBoxChanched(bool)));
+	//--------------------------------------------------
 	sliderHint2->raise();
 }

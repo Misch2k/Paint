@@ -5,6 +5,7 @@
 #include <QLabel>
 #include <QWidget>
 #include <QRadioButton>
+#include <QCheckBox>
 #include "paintwidget.h"
 #include "myhintlabel.h"
 
@@ -26,7 +27,8 @@ class paintSettings : public QWidget {
 	QRadioButton *linesRadioButton;
 	QRadioButton *elipsRadioButton;
 	QRadioButton *quaderRadioButton;
-	QRadioButton *testRadioButton;
+	QRadioButton *spiraleRadioButton;
+	QCheckBox *pointsCheckBox;
 
 
   signals:
