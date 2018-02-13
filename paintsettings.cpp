@@ -23,8 +23,6 @@ paintSettings::paintSettings(EventHandler *h,
 	sliderHint1 = new MyHintLabel(this, slider);
 	sliderHint2 = new MyHintLabel(this, sliderDicke);
 	//--------------------------------------------------
-	QLabel *infoSliderDist = new QLabel("Anz. Linien");
-	QLabel *infoSliderDicke = new QLabel("Dicke");
 	QLabel *StatusLabel = new
 	QLabel("© <a href=\"https://github.com/EvilAcid\"style=\"color: red;\">Achim Grolimund</a> thanks to <a href=\"https://github.com/Misch2k\"style=\"color: red;\">Michel Kugler</a>");
 	StatusLabel->setTextFormat(Qt::TextFormat::RichText);
@@ -42,20 +40,23 @@ paintSettings::paintSettings(EventHandler *h,
 	line->setFixedHeight(2);
 	line->setStyleSheet("color:white");
 	//--------------------------------------------------
-	QFormLayout *settingFormLayout = new QFormLayout;
-	QGroupBox *settingGroupBox = new QGroupBox("Muster");
-	settingFormLayout->addRow(tr("Linien"), linesRadioButton);
-	settingFormLayout->addRow(tr("Elipse"), elipsRadioButton);
-	settingFormLayout->addRow(tr("Quader"), quaderRadioButton);
-	settingGroupBox->setLayout(settingFormLayout);
+	QFormLayout *einstellungenFormLayout = new QFormLayout;
+	QGroupBox *einstellungenGroupBox = new QGroupBox("Einstellung");
+	einstellungenFormLayout->addRow(tr("Anz.Linien"), slider);
+	einstellungenFormLayout->addRow(tr("Dicke"), sliderDicke);
+	einstellungenGroupBox->setLayout(einstellungenFormLayout);
+	//--------------------------------------------------
+	QFormLayout *musterFormLayout = new QFormLayout;
+	QGroupBox *musterGroupBox = new QGroupBox("Muster");
+	musterFormLayout->addRow(tr("Linien"), linesRadioButton);
+	musterFormLayout->addRow(tr("Elipse"), elipsRadioButton);
+	musterFormLayout->addRow(tr("Quader"), quaderRadioButton);
+	musterGroupBox->setLayout(musterFormLayout);
 	//--------------------------------------------------
 	QGridLayout *layout = new QGridLayout();
 	layout->setRowStretch(0, 20);
-	layout->addWidget(infoSliderDist, 1, 0, 1, 2);
-	layout->addWidget(slider, 1, 2, 1, 7);
-	layout->addWidget(infoSliderDicke, 2, 0, 1, 2);
-	layout->addWidget(sliderDicke, 2, 2, 1, 7);
-	layout->addWidget(settingGroupBox, 4, 0, 3, 7);
+	layout->addWidget(einstellungenGroupBox, 1, 0, 2, 7);
+	layout->addWidget(musterGroupBox, 4, 0, 3, 7);
 	//--------------------------------------------------
 	//Line, Copyright and Thanks Label
 	layout->addWidget(line, 10, 0, 1, 7);
