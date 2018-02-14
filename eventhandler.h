@@ -23,16 +23,16 @@ class EventHandler : public QObject {
 
 
   public slots:
-	void SlotSliderChanchedValue(int);
-	void SlotSliderDickeChanchedValue(int);
-	void SlotOpenSettingsWindow();
-	void toggleElipsRadioButton(bool);
-	void toggleLinesRadioButton(bool);
-	void toggleQuaderRadioButton(bool);
-	void toggleTestRadioButton(bool);
-	void SlotSliderRotationChanchedValue(int);
-	void SlotSliderRotationAbstandChanchedValue(int);
-	void SlotPointsCheckBoxChanched(bool);
+	void slotSliderChanchedValue(int);
+	void slotSliderDickeChanchedValue(int);
+	void slotOpenSettingsWindow();
+	void slotToggleElipsRadioButton(bool);
+	void slotToggleLinesRadioButton(bool);
+	void slotToggleQuaderRadioButton(bool);
+	void slotToggleTestRadioButton(bool);
+	void slotSliderRotationChanchedValue(int);
+	void slotSliderRotationAbstandChanchedValue(int);
+	void slotPointsCheckBoxChanched(bool);
 };
 
 #endif // EVENTHANDLER_H

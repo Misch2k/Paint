@@ -17,18 +17,18 @@ class paintSettings : public QWidget {
 	explicit paintSettings(EventHandler *h, QWidget *parent = nullptr);
 
   private:
-	QSlider *slider;
+	QSlider *sliderAnzahlLinien;
 	QSlider *sliderDicke;
 	QSlider *sliderRotation;
 	QSlider *sliderRotationAbstand;
-	paintWidget *pw;
+	paintWidget *paintWidget;
 	MyHintLabel *sliderHint1;
 	MyHintLabel *sliderHint2;
-	QRadioButton *linesRadioButton;
-	QRadioButton *elipsRadioButton;
-	QRadioButton *quaderRadioButton;
-	QRadioButton *spiraleRadioButton;
-	QCheckBox *pointsCheckBox;
+	QRadioButton *radioButtonDrawLines;
+	QRadioButton *radioButtonDrawElipses;
+	QRadioButton *radioButtonDrawQuader;
+	QRadioButton *radioButtonDrawSpirale;
+	QCheckBox *checkBoxDrawPoints;
 
 
   signals:
