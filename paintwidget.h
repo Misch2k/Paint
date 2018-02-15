@@ -26,7 +26,7 @@ class paintWidget : public QMainWindow {
 	bool isSpirale = 0;
 	bool isSpirale_Points = 0;
 	EventHandler *h;
-	QStatusBar *statusbar;
+	//QStatusBar *statusbar;
 
 
   public slots:

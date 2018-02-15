@@ -121,6 +121,10 @@ void paintWidget::paintEvent(QPaintEvent *event) {
 		painter.drawText(QPoint(width() / 2, height() / 2), "FAIL");
 	}
 }
+
+//--------------------------------------------------
+//Slots
+//--------------------------------------------------
 void paintWidget::slotOpenSettingsWindow() {
 	qDebug() << "SlotopenSettingWindow ausgelöst";
 	paintSettings *ps = new paintSettings(h);

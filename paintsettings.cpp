@@ -48,7 +48,7 @@ paintSettings::paintSettings(EventHandler *h,
 	line->setStyleSheet("color:white");
 	//--------------------------------------------------
 	QFormLayout *einstellungenFormLayout = new QFormLayout;
-	QGroupBox *einstellungenGroupBox = new QGroupBox("Einstellung");
+	QGroupBox *einstellungenGroupBox = new QGroupBox(tr("Einstellung"));
 	einstellungenFormLayout->addRow(tr("Anz.Linien"), sliderAnzahlLinien);
 	einstellungenFormLayout->addRow(tr("Dicke"), sliderDicke);
 	einstellungenGroupBox->setLayout(einstellungenFormLayout);
@@ -74,20 +74,21 @@ paintSettings::paintSettings(EventHandler *h,
 	layout->addWidget(line, 10, 0, 1, 7);
 	layout->addWidget(StatusLabel, 11, 0, 1, 7);
 	//--------------------------------------------------
-	setWindowTitle("Settings");
+	setWindowTitle(tr("Settings"));
 	setWindowIcon(QIcon(":/icons/settings_1.ico"));
-	//setFixedSize(200, 40);
-	setWindowFlags(Qt::WindowStaysOnTopHint);
+	setWindowFlags(Qt::WindowStaysOnTopHint | Qt::Window |
+				   Qt::WindowCloseButtonHint);
+	setFixedSize(220, 270);
 	setLayout(layout);
 	//--------------------------------------------------
 	//--------------------------------------------------
 	//--------------------------------------------------
 	//Slider Valuechanched sende Daten an EventHandler
-	QObject::connect(this->sliderAnzahlLinien, SIGNAL(valueChanged(int)), h,
-					 SLOT(slotSliderChanchedValue(int)));
+	QObject::connect(this->sliderAnzahlLinien, SIGNAL(valueChanged(int)),
+					 h, SLOT(slotSliderChanchedValue(int)));
 	//--------------------------------------------------
-	QObject::connect(this->sliderDicke, SIGNAL(valueChanged(int)), h,
-					 SLOT(slotSliderDickeChanchedValue(int)));
+	QObject::connect(this->sliderDicke, SIGNAL(valueChanged(int)),
+					 h, SLOT(slotSliderDickeChanchedValue(int)));
 	//--------------------------------------------------
 	QObject::connect( this->radioButtonDrawLines, SIGNAL(toggled(bool)),
 					  h, SLOT(slotToggleLinesRadioButton(bool)));
@@ -101,11 +102,11 @@ paintSettings::paintSettings(EventHandler *h,
 	QObject::connect( this->radioButtonDrawSpirale, SIGNAL(toggled(bool)),
 					  h, SLOT(slotToggleTestRadioButton(bool)));
 	//--------------------------------------------------
-	QObject::connect(this->sliderRotation, SIGNAL(valueChanged(int)), h,
-					 SLOT(slotSliderRotationChanchedValue(int)));
+	QObject::connect(this->sliderRotation, SIGNAL(valueChanged(int)),
+					 h, SLOT(slotSliderRotationChanchedValue(int)));
 	//--------------------------------------------------
-	QObject::connect(this->sliderRotationAbstand, SIGNAL(valueChanged(int)), h,
-					 SLOT(slotSliderRotationAbstandChanchedValue(int)));
+	QObject::connect(this->sliderRotationAbstand, SIGNAL(valueChanged(int)),
+					 h, SLOT(slotSliderRotationAbstandChanchedValue(int)));
 	//--------------------------------------------------
 	QObject::connect( this->checkBoxDrawPoints, SIGNAL(toggled(bool)),
 					  h, SLOT(slotPointsCheckBoxChanched(bool)));
