@@ -17,20 +17,24 @@ class EventHandler : public QObject {
 	void signalElipsRadioButtonToogled(bool);
 	void signalQuaderRadioButtonToogled(bool);
 	void signalTestRadioButtonToogled(bool);
+    void signalSpiralRadioButtonToogled(bool);
 	void signalSliderRotationChanched(int);
 	void signalSliderRotationAbstandChanched(int);
+	void signalPointsCheckBoxToogled(bool);
 
 
   public slots:
-	void SlotSliderChanchedValue(int);
-	void SlotSliderDickeChanchedValue(int);
-	void SlotOpenSettingsWindow();
-	void toggleElipsRadioButton(bool);
-	void toggleLinesRadioButton(bool);
-	void toggleQuaderRadioButton(bool);
-	void toggleTestRadioButton(bool);
-	void SlotSliderRotationChanchedValue(int);
-	void SlotSliderRotationAbstandChanchedValue(int);
+	void slotSliderChanchedValue(int);
+	void slotSliderDickeChanchedValue(int);
+	void slotOpenSettingsWindow();
+	void slotToggleElipsRadioButton(bool);
+	void slotToggleLinesRadioButton(bool);
+	void slotToggleQuaderRadioButton(bool);
+	void slotToggleTestRadioButton(bool);
+    void slotToggleSpiralRadioButton(bool);
+	void slotSliderRotationChanchedValue(int);
+	void slotSliderRotationAbstandChanchedValue(int);
+	void slotPointsCheckBoxChanched(bool);
 };
 
 #endif // EVENTHANDLER_H

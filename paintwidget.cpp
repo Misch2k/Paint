@@ -13,36 +13,42 @@ paintWidget::paintWidget(QWidget *parent)
 	setWindowIcon(QIcon(":/icons/paint.ico"));
 	setMinimumHeight(500);
 	setMinimumWidth(500);
+	//--------------------------------------------------
 	QObject::connect(this, SIGNAL(signalOpenSettingsWindow()), h,
-					 SLOT(SlotOpenSettingsWindow()));
+					 SLOT(slotOpenSettingsWindow()));
 	//--------------------------------------------------
 	QObject::connect(h, SIGNAL(signalOpenSettings()),
-					 this, SLOT(SlotOpenSettingsWindow()));
+					 this, SLOT(slotOpenSettingsWindow()));
 	//--------------------------------------------------
 	QObject::connect(h, SIGNAL(signalSliderChanched(int)),
-					 this, SLOT(SlotSliderChanchedValue(int)));
+					 this, SLOT(slotSliderChanchedValue(int)));
 	//--------------------------------------------------
 	QObject::connect(h, SIGNAL(signalSliderDickeChanched(int)),
-					 this, SLOT(SlotSliderDickeChanchedValue(int)));
+					 this, SLOT(slotSliderDickeChanchedValue(int)));
 	//--------------------------------------------------
 	QObject::connect(h, SIGNAL(signalLinesRadioButtonToogled(bool)),
-					 this, SLOT(SlotLinesRadioButtonChanched(bool)));
+					 this, SLOT(slotLinesRadioButtonChanched(bool)));
 	//--------------------------------------------------
 	QObject::connect(h, SIGNAL(signalElipsRadioButtonToogled(bool)),
-					 this, SLOT(SlotElipsRadioButtonChanched(bool)));
+					 this, SLOT(slotElipsRadioButtonChanched(bool)));
 	//--------------------------------------------------
 	QObject::connect(h, SIGNAL(signalQuaderRadioButtonToogled(bool)),
-					 this, SLOT(SlotQuaderRadioButtonChanched(bool)));
-	//--------------------------------------------------
-	QObject::connect(h, SIGNAL(signalTestRadioButtonToogled(bool)),
-					 this, SLOT(SlotTestRadioButtonChanched(bool)));
-	//--------------------------------------------------
+					 this, SLOT(slotQuaderRadioButtonChanched(bool)));
+    //--------------------------------------------------
+    QObject::connect(h, SIGNAL(signalSpiralRadioButtonToogled(bool)),
+                     this, SLOT(slotSpiraleRadioButtonChanched(bool)));
+    //--------------------------------------------------
+    QObject::connect(h, SIGNAL(signalTestRadioButtonToogled(bool)),
+                     this, SLOT(slotTestRadioButtonChanched(bool)));
+    //--------------------------------------------------
 	QObject::connect(h, SIGNAL(signalSliderRotationChanched(int)),
-					 this, SLOT(SlotSliderRotationChanchedValue(int)));
-	//--------------------------------------------------
+                     this, SLOT(slotSliderRotationChanchedValue(int)));
 	//--------------------------------------------------
 	QObject::connect(h, SIGNAL(signalSliderRotationAbstandChanched(int)),
-					 this, SLOT(SlotSliderRotationAbstandChanchedValue(int)));
+					 this, SLOT(slotSliderRotationAbstandChanchedValue(int)));
+	//--------------------------------------------------
+	QObject::connect(h, SIGNAL(signalPointsCheckBoxToogled(bool)),
+					 this, SLOT(slotPointsCheckBoxChanched(bool)));
 	//--------------------------------------------------
 	emit signalOpenSettingsWindow();
 }
@@ -122,58 +128,90 @@ void paintWidget::paintEvent(QPaintEvent *event) {
             }
         }
         painter.resetTransform();
+	} else if (isSpirale) {
+		//Bringt die Koordinate 0,0 in die Mitte der Fensters
+		painter.translate(width() / 2, height() / 2);
+		int x_versatz = versatz;
+		if (!isSpirale_Points) {
+			for (int var(0); var < distValue; ++var) {
+				painter.drawEllipse(QPointF(x_versatz, 0), 50, 50);
+				//Rotation um xx Grad
+				painter.rotate(rotation);
+				x_versatz += versatz;
+				qDebug() << "isSpirale Rotation " << rotation;
+				qDebug() << "isSpirale Abstand " << versatz;
+			}
+			painter.resetTransform();
+		} else if (isSpirale_Points) {
+			for (int var(0); var < distValue; ++var) {
+				painter.drawPoint(QPointF(x_versatz, 0));
+				//Rotation um xx Grad
+				painter.rotate(rotation);
+				x_versatz += versatz;
+				qDebug() << "isSpirale Rotation " << rotation;
+				qDebug() << "isSpirale Abstand " << versatz;
+			}
+			painter.resetTransform();
+		}
 	} else {
 		painter.drawText(QPoint(width() / 2, height() / 2), "FAIL");
 	}
 }
 
-void paintWidget::SlotOpenSettingsWindow() {
+//--------------------------------------------------
+//Slots
+//--------------------------------------------------
+void paintWidget::slotOpenSettingsWindow() {
 	qDebug() << "SlotopenSettingWindow ausgelöst";
 	paintSettings *ps = new paintSettings(h);
 	ps->show();
 }
-
-void paintWidget::SlotSliderChanchedValue(int v) {
+void paintWidget::slotSliderChanchedValue(int v) {
 	qDebug() << "Paint: Slider Wert geändert -> " << v;
 	distValue = v;
 	paintWidget::repaint();
 }
-
-void paintWidget::SlotSliderDickeChanchedValue(int v) {
+void paintWidget::slotSliderDickeChanchedValue(int v) {
 	dickeValue = v;
 	paintWidget::repaint();
 }
-
-void paintWidget::SlotLinesRadioButtonChanched(bool v) {
+void paintWidget::slotLinesRadioButtonChanched(bool v) {
 	qDebug() << "Paintwidget Lines --> " << v;
 	isLines = v;
 	paintWidget::repaint();
 }
-
-void paintWidget::SlotElipsRadioButtonChanched(bool v) {
+void paintWidget::slotElipsRadioButtonChanched(bool v) {
 	qDebug() << "Paintwidget Elips --> " << v;
 	isElips = v;
 	paintWidget::repaint();
 }
-
-void paintWidget::SlotQuaderRadioButtonChanched(bool v) {
+void paintWidget::slotQuaderRadioButtonChanched(bool v) {
 	qDebug() << "Paintwidget Quader --> " << v;
 	isQuader = v;
 	paintWidget::repaint();
 }
-void paintWidget::SlotTestRadioButtonChanched(bool v) {
-    qDebug() << "Paintwidget Test --> " << v*0.01;
-	isTest = v;
+void paintWidget::slotTestRadioButtonChanched(bool v) {
+    qDebug() << "Paintwidget Test --> " << v;
+    isTest = v;
+    paintWidget::repaint();
+}
+void paintWidget::slotSpiraleRadioButtonChanched(bool v) {
+    qDebug() << "Paintwidget Spirale --> " << v;
+	isSpirale = v;
 	paintWidget::repaint();
 }
-void paintWidget::SlotSliderRotationChanchedValue(int v) {
+void paintWidget::slotSliderRotationChanchedValue(int v) {
 	qDebug() << "Paint: SliderRotation Wert geändert -> " << v;
 	rotation = v;
 	paintWidget::repaint();
 }
-void paintWidget::SlotSliderRotationAbstandChanchedValue(int v) {
+void paintWidget::slotSliderRotationAbstandChanchedValue(int v) {
 	qDebug() << "Paint: SliderRotationAbstand Wert geändert -> " << v;
-	abstand = v;
+	versatz = v;
 	paintWidget::repaint();
 }
-
+void paintWidget::slotPointsCheckBoxChanched(bool v) {
+	qDebug() << "Paintwidget Points --> " << v;
+	isSpirale_Points = v;
+	paintWidget::repaint();
+}

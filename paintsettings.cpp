@@ -5,27 +5,28 @@
 #include <QObject>
 #include <QDebug>
 #include <QRadioButton>
+#include <QCheckBox>
 #include <QGroupBox>
 #include <QFormLayout>
 
 paintSettings::paintSettings(EventHandler *h,
 							 QWidget *parent) : QWidget(parent) {
-	slider = new QSlider(Qt::Orientation::Horizontal);
-	slider->setTracking(true);
-	slider->setMinimum(1);
-	slider->setSliderPosition(20);
-	slider->setMaximum(999);
+	sliderAnzahlLinien = new QSlider(Qt::Orientation::Horizontal);
+	sliderAnzahlLinien->setTracking(true);
+	sliderAnzahlLinien->setMinimum(1);
+	sliderAnzahlLinien->setSliderPosition(20);
+	sliderAnzahlLinien->setMaximum(999);
 	sliderDicke = new QSlider(Qt::Orientation::Horizontal);
 	sliderDicke->setTracking(true);
 	sliderDicke->setMinimum(1);
 	sliderDicke->setMaximum(50);
-	//setFixedSize(250, 100);
-	sliderHint1 = new MyHintLabel(this, slider);
+	sliderDicke->setSliderPosition(10);
+	sliderHint1 = new MyHintLabel(this, sliderAnzahlLinien);
 	sliderHint2 = new MyHintLabel(this, sliderDicke);
 	sliderRotation = new QSlider(Qt::Orientation::Horizontal);
 	sliderRotation->setRange(1, 179);
 	sliderRotationAbstand = new QSlider(Qt::Orientation::Horizontal);
-	sliderRotationAbstand->setRange(1, 200);
+	sliderRotationAbstand->setRange(1, 50);
 	//--------------------------------------------------
 	QLabel *StatusLabel = new
 	QLabel("© <a href=\"https://github.com/EvilAcid\"style=\"color: red;\">Achim Grolimund</a> thanks to <a href=\"https://github.com/Misch2k\"style=\"color: red;\">Michel Kugler</a>");
@@ -33,11 +34,13 @@ paintSettings::paintSettings(EventHandler *h,
 	StatusLabel->setTextInteractionFlags(Qt::TextBrowserInteraction);
 	StatusLabel->setOpenExternalLinks(true);
 	//--------------------------------------------------
-	linesRadioButton = new QRadioButton();
-	linesRadioButton->setChecked(true);
-	elipsRadioButton = new QRadioButton();
-	quaderRadioButton = new QRadioButton();
-	testRadioButton = new QRadioButton();
+	radioButtonDrawLines = new QRadioButton();
+	radioButtonDrawLines->setChecked(true);
+	radioButtonDrawElipses = new QRadioButton();
+	radioButtonDrawQuader = new QRadioButton();
+	radioButtonDrawSpirale = new QRadioButton();
+    radioButtonDrawTest = new QRadioButton();
+	checkBoxDrawPoints = new QCheckBox();
 	//--------------------------------------------------
 	QFrame *line = new QFrame(this);
 	line->setFrameShape(QFrame::HLine);
@@ -46,23 +49,25 @@ paintSettings::paintSettings(EventHandler *h,
 	line->setStyleSheet("color:white");
 	//--------------------------------------------------
 	QFormLayout *einstellungenFormLayout = new QFormLayout;
-	QGroupBox *einstellungenGroupBox = new QGroupBox("Einstellung");
-	einstellungenFormLayout->addRow(tr("Anz.Linien"), slider);
+	QGroupBox *einstellungenGroupBox = new QGroupBox(tr("Einstellung"));
+	einstellungenFormLayout->addRow(tr("Anz.Linien"), sliderAnzahlLinien);
 	einstellungenFormLayout->addRow(tr("Dicke"), sliderDicke);
 	einstellungenGroupBox->setLayout(einstellungenFormLayout);
 	//--------------------------------------------------
 	QFormLayout *musterFormLayout = new QFormLayout;
 	QGroupBox *musterGroupBox = new QGroupBox("Muster");
-	musterFormLayout->addRow(tr("Linien"), linesRadioButton);
-	musterFormLayout->addRow(tr("Elipse"), elipsRadioButton);
-	musterFormLayout->addRow(tr("Quader"), quaderRadioButton);
-	musterFormLayout->addRow(tr("Test"), testRadioButton);
-	musterFormLayout->addRow(tr("     - Rotation"), sliderRotation);
-	musterFormLayout->addRow(tr("     - Abstand"), sliderRotationAbstand);
+	musterFormLayout->addRow(tr("Linien"), radioButtonDrawLines);
+	musterFormLayout->addRow(tr("Elipse"), radioButtonDrawElipses);
+	musterFormLayout->addRow(tr("Quader"), radioButtonDrawQuader);
+	musterFormLayout->addRow(tr("Spirale"), radioButtonDrawSpirale);
+    musterFormLayout->addRow(tr("Test"), radioButtonDrawTest);
+	musterFormLayout->addRow(tr("<ul><li> Rotation</li></ul>"), sliderRotation);
+	musterFormLayout->addRow(tr("<ul><li> Abstand</li></ul>"),
+							 sliderRotationAbstand);
+	musterFormLayout->addRow(tr("<ul><li> Punkte</li></ul>"), checkBoxDrawPoints);
 	musterGroupBox->setLayout(musterFormLayout);
 	//--------------------------------------------------
 	QGridLayout *layout = new QGridLayout();
-	layout->setRowStretch(0, 20);
 	layout->addWidget(einstellungenGroupBox, 1, 0, 2, 7);
 	layout->addWidget(musterGroupBox, 4, 0, 3, 7);
 	//--------------------------------------------------
@@ -70,37 +75,45 @@ paintSettings::paintSettings(EventHandler *h,
 	layout->addWidget(line, 10, 0, 1, 7);
 	layout->addWidget(StatusLabel, 11, 0, 1, 7);
 	//--------------------------------------------------
-	setWindowTitle("Settings");
+	setWindowTitle(tr("Settings"));
 	setWindowIcon(QIcon(":/icons/settings_1.ico"));
-	//setFixedSize(200, 40);
-	setWindowFlags(Qt::WindowStaysOnTopHint);
+	setWindowFlags(Qt::WindowStaysOnTopHint | Qt::Window |
+				   Qt::WindowCloseButtonHint);
+    setFixedSize(240, 320);
 	setLayout(layout);
 	//--------------------------------------------------
 	//--------------------------------------------------
 	//--------------------------------------------------
 	//Slider Valuechanched sende Daten an EventHandler
-	QObject::connect(this->slider, SIGNAL(valueChanged(int)), h,
-					 SLOT(SlotSliderChanchedValue(int)));
+	QObject::connect(this->sliderAnzahlLinien, SIGNAL(valueChanged(int)),
+					 h, SLOT(slotSliderChanchedValue(int)));
 	//--------------------------------------------------
-	QObject::connect(this->sliderDicke, SIGNAL(valueChanged(int)), h,
-					 SLOT(SlotSliderDickeChanchedValue(int)));
+	QObject::connect(this->sliderDicke, SIGNAL(valueChanged(int)),
+					 h, SLOT(slotSliderDickeChanchedValue(int)));
 	//--------------------------------------------------
-	QObject::connect( this->linesRadioButton, SIGNAL(toggled(bool)),
-					  h, SLOT(toggleLinesRadioButton(bool)));
+	QObject::connect( this->radioButtonDrawLines, SIGNAL(toggled(bool)),
+					  h, SLOT(slotToggleLinesRadioButton(bool)));
 	//--------------------------------------------------
-	QObject::connect( this->elipsRadioButton, SIGNAL(toggled(bool)),
-					  h, SLOT(toggleElipsRadioButton(bool)));
+	QObject::connect( this->radioButtonDrawElipses, SIGNAL(toggled(bool)),
+					  h, SLOT(slotToggleElipsRadioButton(bool)));
 	//--------------------------------------------------
-	QObject::connect( this->quaderRadioButton, SIGNAL(toggled(bool)),
-					  h, SLOT(toggleQuaderRadioButton(bool)));
+	QObject::connect( this->radioButtonDrawQuader, SIGNAL(toggled(bool)),
+                      h, SLOT(slotToggleQuaderRadioButton(bool)));
+    //--------------------------------------------------
+    QObject::connect( this->radioButtonDrawSpirale, SIGNAL(toggled(bool)),
+                      h, SLOT(slotToggleSpiralRadioButton(bool)));
+    //--------------------------------------------------
+    QObject::connect( this->radioButtonDrawTest, SIGNAL(toggled(bool)),
+                      h, SLOT(slotToggleTestRadioButton(bool)));
 	//--------------------------------------------------
-	QObject::connect( this->testRadioButton, SIGNAL(toggled(bool)),
-					  h, SLOT(toggleTestRadioButton(bool)));
+	QObject::connect(this->sliderRotation, SIGNAL(valueChanged(int)),
+					 h, SLOT(slotSliderRotationChanchedValue(int)));
 	//--------------------------------------------------
-	QObject::connect(this->sliderRotation, SIGNAL(valueChanged(int)), h,
-					 SLOT(SlotSliderRotationChanchedValue(int)));
+	QObject::connect(this->sliderRotationAbstand, SIGNAL(valueChanged(int)),
+					 h, SLOT(slotSliderRotationAbstandChanchedValue(int)));
 	//--------------------------------------------------
-	QObject::connect(this->sliderRotationAbstand, SIGNAL(valueChanged(int)), h,
-					 SLOT(SlotSliderRotationAbstandChanchedValue(int)));
+	QObject::connect( this->checkBoxDrawPoints, SIGNAL(toggled(bool)),
+					  h, SLOT(slotPointsCheckBoxChanched(bool)));
+	//--------------------------------------------------
 	sliderHint2->raise();
 }

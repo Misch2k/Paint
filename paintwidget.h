@@ -17,27 +17,31 @@ class paintWidget : public QMainWindow {
   private:
 	void paintEvent(QPaintEvent *event);
 	int distValue = 20;
-	int dickeValue = 1;
-	int rotation = 0;
-	int abstand = 0;
+	int dickeValue = 10;
+	int rotation = 1;
+	int versatz = 1;
 	bool isLines = 1;
 	bool isElips = 0;
 	bool isQuader = 0;
-	bool isTest = 0;
+	bool isSpirale = 0;
+	bool isSpirale_Points = 0;
+    bool isTest = 0;
 	EventHandler *h;
-	QStatusBar *statusbar;
+	//QStatusBar *statusbar;
 
 
   public slots:
-	void SlotOpenSettingsWindow();
-	void SlotSliderChanchedValue(int );
-	void SlotSliderDickeChanchedValue(int );
-	void SlotLinesRadioButtonChanched(bool );
-	void SlotElipsRadioButtonChanched(bool );
-	void SlotQuaderRadioButtonChanched(bool );
-	void SlotTestRadioButtonChanched(bool );
-	void SlotSliderRotationChanchedValue(int );
-	void SlotSliderRotationAbstandChanchedValue(int );
+	void slotOpenSettingsWindow();
+	void slotSliderChanchedValue(int );
+	void slotSliderDickeChanchedValue(int );
+	void slotLinesRadioButtonChanched(bool );
+	void slotElipsRadioButtonChanched(bool );
+	void slotQuaderRadioButtonChanched(bool );
+	void slotSpiraleRadioButtonChanched(bool );
+    void slotTestRadioButtonChanched(bool );
+	void slotSliderRotationChanchedValue(int );
+	void slotSliderRotationAbstandChanchedValue(int );
+	void slotPointsCheckBoxChanched(bool);
 
   signals:
 	void signalOpenSettingsWindow();
