@@ -1,11 +1,11 @@
 #include "paintwidget.h"
 #include "paintsettings.h"
 #include "eventhandler.h"
+#include "math.h"
 
 #include <QDebug>
 #include <QPainter>
 #include <QObject>
-
 
 paintWidget::paintWidget(QWidget *parent)
 	: QMainWindow(parent) {
@@ -54,7 +54,7 @@ void paintWidget::paintEvent(QPaintEvent *event) {
 	//Settings
 	//--------------------------------------------------
 	QPainter painter(this);
-	painter.setRenderHint(QPainter::HighQualityAntialiasing);
+    //painter.setRenderHint(QPainter::HighQualityAntialiasing);
 	painter.setPen(QPen(Qt::white, dickeValue * 0.1));
 	//--------------------------------------------------
 	//isLines == True
@@ -84,23 +84,44 @@ void paintWidget::paintEvent(QPaintEvent *event) {
 		int breite(0), hoehe(0);
 		for (int i = 0; i < distValue; i++) {
 			hoehe = (height() ) * i / distValue;
-			breite = (width() ) * i / distValue;
-			painter.drawRect((width() / 2 ) - (breite / 2), (height() / 2) - (hoehe / 2),
-							 breite, hoehe);
-		}
+            breite = (width() ) * i / distValue;
+            painter.drawRect((width() / 2 ) - (breite / 2), (height() / 2) - (hoehe / 2),
+                             breite, hoehe);
+        }
 	} else if (isTest) {
 		//Bringt die Koordinate 0,0 in die Mitte der Fensters
-		painter.translate(width() / 2, height() / 2);
-		int p1 = abstand;
-		for (int var(0); var < distValue; ++var) {
-			painter.drawEllipse(QPointF(p1, 0), 50, 50);
-			//Rotation um xx Grad
-			painter.rotate(rotation);
-			p1 += abstand;
-			qDebug() << "isTest Rotation " << rotation;
-			qDebug() << "istest Abstand " << abstand;
-		}
-		painter.resetTransform();
+        painter.translate(width() / 2, height() / 2);
+        double delta;
+        int x, y, r;
+        int rot = rotation / 9;
+        for (int i = 0; i < distValue; i++) {
+            r = (width() ) * i / distValue;
+            x=0; y=r;
+            delta = 5.0/4.0 - r;
+            painter.setPen(QPen(Qt::white, rot < 10 ? (double)rot*0.2+0.5 : ((double)rot -20) * -0.2+0.5));
+
+            while (y>=x) {
+                painter.drawPoint(QPoint(0+x,0+y));
+                painter.drawPoint(QPoint(0+x,0-y));
+                painter.drawPoint(QPoint(0-x,0+y));
+                painter.drawPoint(QPoint(0-x,0-y));
+                painter.drawPoint(QPoint(0+y,0+x));
+                painter.drawPoint(QPoint(0+y,0-x));
+                painter.drawPoint(QPoint(0-y,0+x));
+                painter.drawPoint(QPoint(0-y,0-x));
+
+                if (delta < 0.0 ) {
+                    delta += 2*x + (rotation-70)*3;
+                    x++;
+                }
+                else {
+                     delta += 2*x - 2*y + (rotation-70)*3;
+                     x++;
+                     y--;
+                }
+            }
+        }
+        painter.resetTransform();
 	} else {
 		painter.drawText(QPoint(width() / 2, height() / 2), "FAIL");
 	}
@@ -141,7 +162,7 @@ void paintWidget::SlotQuaderRadioButtonChanched(bool v) {
 	paintWidget::repaint();
 }
 void paintWidget::SlotTestRadioButtonChanched(bool v) {
-	qDebug() << "Paintwidget Test --> " << v;
+    qDebug() << "Paintwidget Test --> " << v*0.01;
 	isTest = v;
 	paintWidget::repaint();
 }
