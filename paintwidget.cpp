@@ -60,7 +60,7 @@ void paintWidget::paintEvent(QPaintEvent *event) {
 	//Settings
 	//--------------------------------------------------
 	QPainter painter(this);
-    //painter.setRenderHint(QPainter::HighQualityAntialiasing);
+    painter.setRenderHint(QPainter::HighQualityAntialiasing);
 	painter.setPen(QPen(Qt::white, dickeValue * 0.1));
 	//--------------------------------------------------
 	//isLines == True
